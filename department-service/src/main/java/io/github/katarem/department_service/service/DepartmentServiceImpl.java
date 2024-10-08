@@ -2,6 +2,7 @@ package io.github.katarem.department_service.service;
 
 import io.github.katarem.department_service.dto.DepartmentDto;
 import io.github.katarem.department_service.entity.Department;
+import io.github.katarem.department_service.exception.ResourceNotFoundException;
 import io.github.katarem.department_service.mapper.DepartmentMapper;
 import io.github.katarem.department_service.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,12 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     public DepartmentDto get(Long id) {
         Department department = repository.findById(id).orElseThrow();
+        return DepartmentMapper.INSTANCE.departmentToDto(department);
+    }
+
+    @Override
+    public DepartmentDto getDepartmentByCode(String code) throws ResourceNotFoundException {
+        Department department = repository.findByDepartmentCode(code).orElseThrow(() -> new ResourceNotFoundException("Department","code",code));
         return DepartmentMapper.INSTANCE.departmentToDto(department);
     }
 

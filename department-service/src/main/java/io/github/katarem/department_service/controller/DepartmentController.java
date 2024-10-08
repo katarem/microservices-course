@@ -1,6 +1,7 @@
 package io.github.katarem.department_service.controller;
 
 import io.github.katarem.department_service.dto.DepartmentDto;
+import io.github.katarem.department_service.exception.ResourceNotFoundException;
 import io.github.katarem.department_service.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,12 @@ public class DepartmentController {
     @GetMapping("{id}")
     public ResponseEntity<DepartmentDto> getOne(@PathVariable("id") Long id){
         return ResponseEntity.ok(service.get(id));
+    }
+
+    @GetMapping("/code/{departmentCode}")
+    public ResponseEntity<DepartmentDto> getByDepartmentCode(@PathVariable("departmentCode") String departmentCode) throws ResourceNotFoundException {
+        DepartmentDto found = service.getDepartmentByCode(departmentCode);
+        return ResponseEntity.ok(found);
     }
 
     @GetMapping
