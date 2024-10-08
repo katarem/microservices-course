@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmployeeService {
     List<EmployeeDto> getAll();
-    EmployeeDto get(Long id);
+    EmployeeDto getById(Long id) throws ResouceNotFoundException;
     EmployeeDto insert(EmployeeDto dto);
     EmployeeDto update(Long id, EmployeeDto dto);
     void delete(Long id);

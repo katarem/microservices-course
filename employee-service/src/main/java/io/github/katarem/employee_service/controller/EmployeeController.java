@@ -3,6 +3,7 @@ package io.github.katarem.employee_service.controller;
 import io.github.katarem.employee_service.dto.EmployeeDto;
 import io.github.katarem.employee_service.mapper.EmployeeMapper;
 import io.github.katarem.employee_service.service.EmployeeService;
+import io.github.katarem.employee_service.service.ResouceNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,8 @@ public class EmployeeController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<EmployeeDto> getById(@PathVariable("id") Long id){
-        EmployeeDto employeeDto = service.get(id);
+    public ResponseEntity<EmployeeDto> getById(@PathVariable("id") Long id) throws ResouceNotFoundException {
+        EmployeeDto employeeDto = service.getById(id);
         return ResponseEntity.ok(employeeDto);
     }
 
